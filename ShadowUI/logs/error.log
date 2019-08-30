@@ -1,0 +1,15 @@
+====Thu Aug 29 18:23:34 GMT+0800 2019====
+Error in (PublishHandler): 代码模板不存在！ CocosCreator/Binder.template
+Error: 代码模板不存在！ CocosCreator/Binder.template
+	at fairygui.editor.publish.gencode::GenerateCodeBase/loadTemplate()
+	at fairygui.editor.publish.gencode::TplCocosCreatorGenerator/run()
+	at fairygui.editor.publish::PublishHandler/runStep()
+	at fairygui.editor.publish::PublishHandler/generateCode()
+	at fairygui.editor.utils::Callback/callOnSuccessImmediately()
+	at fairygui.editor.publish::CallPlugins/run()
+	at fairygui.editor.publish::PublishHandler/runStep()
+	at fairygui.editor.publish::PublishHandler/callPlugins()
+	at fairygui.editor.utils::Callback/callOnSuccessImmediately()
+	at fairygui.utils::GTimers/__timer()
+	at flash.utils::Timer/tick()
+

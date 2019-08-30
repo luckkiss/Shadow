@@ -1,0 +1,16 @@
+{
+	"binaryFormat":true,
+	"codeGeneration":{
+		"classNamePrefix":"",
+		"codePath":"C:\\Users\\eatdreamcat\\Desktop\\UI",
+		"codeType":"",
+		"getMemberByName":true,
+		"ignoreNoname":true,
+		"memberNamePrefix":"m_",
+		"packageName":""
+	},
+	"compressDesc":false,
+	"fileExtension":"",
+	"packageCount":2,
+	"path":"E:\\Code\\PunchTheMoon\\PunchTheMoon\\assets\\Script\\UI\\export"
+}

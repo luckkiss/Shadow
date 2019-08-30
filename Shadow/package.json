@@ -1,0 +1,16 @@
+{
+  "name": "shadow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-pinyin": "^0.2.3",
+    "node-xlsx": "^0.12.1",
+    "xlsx": "^0.14.1"
+  }
+}
