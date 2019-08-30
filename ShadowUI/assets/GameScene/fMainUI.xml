@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1280,720" adaptationTest="FitSize">
+  <displayList>
+    <component id="n0_ps65" name="ButtonTop" src="ps655" fileName="Button.xml" xy="1081,59"/>
+    <component id="n1_ps65" name="ButtonBottom" src="ps655" fileName="Button.xml" xy="66,518"/>
+  </displayList>
+</component>

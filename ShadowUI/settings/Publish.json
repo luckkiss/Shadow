@@ -2,7 +2,7 @@
 	"binaryFormat":true,
 	"codeGeneration":{
 		"classNamePrefix":"",
-		"codePath":"C:\\Users\\eatdreamcat\\Desktop\\UI",
+		"codePath":"E:\\Code\\Shadow\\Shadow\\assets\\Script\\UI\\export",
 		"codeType":"",
 		"getMemberByName":true,
 		"ignoreNoname":true,
@@ -12,5 +12,5 @@
 	"compressDesc":false,
 	"fileExtension":"",
 	"packageCount":2,
-	"path":"E:\\Code\\PunchTheMoon\\PunchTheMoon\\assets\\Script\\UI\\export"
+	"path":"E:\\Code\\Shadow\\Shadow\\assets\\resources\\UI\\sync"
 }

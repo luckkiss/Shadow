@@ -4,6 +4,7 @@ import { ShaderManager } from "../Shader/ShaderManager";
 import { gAudio } from "../Controller/AudioController";
 import { UIMgr } from "../Controller/UIManager";
 import { gFactory } from "../Factory/GameFactory";
+import { threadId } from "worker_threads";
 const celerx = require("../Utils/celerx");
 const { ccclass, property } = cc._decorator;
 
@@ -49,7 +50,10 @@ export default class WelcomeScene extends cc.Component {
   })
   nextSceneName: string = "game";
 
+  @property(cc.Label)
+  percentLabel: cc.Label = null;
   private maxPercent: number = 0;
+  private curPercent: number = 0;
 
   private nextScene: cc.Scene;
 
@@ -122,7 +126,14 @@ export default class WelcomeScene extends cc.Component {
   }
 
   update(dt: number) {
-    //this.node.emit("load_done");
+    this.curPercent += dt;
+    if (this.curPercent >= this.maxPercent) {
+      this.curPercent = this.maxPercent;
+    }
+    this.percentLabel.string = (this.curPercent * 100).toFixed(2) + "%";
+    if (this.curPercent >= 1) {
+      this.node.emit("load_done");
+    }
   }
 
   animationDone() {
@@ -146,6 +157,7 @@ export default class WelcomeScene extends cc.Component {
         "load_done",
         () => {
           if (this.nextScene) {
+            console.log("runSceneImmediate", this.nextScene);
             cc.director.runSceneImmediate(this.nextScene);
           } else {
             cc.director.loadScene(this.nextSceneName);

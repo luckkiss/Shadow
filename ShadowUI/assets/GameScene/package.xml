@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="vmvonsvy" jpegQuality="80" compressPNG="true">
   <resources>
-    <component id="v7i61" name="Button1.xml" path="/"/>
-    <component id="v7i62" name="MainUI.xml" path="/" exported="true"/>
+    <component id="v7i62" name="fMainUI.xml" path="/" exported="true"/>
+    <image id="ps654" name="button.png" path="/images/"/>
+    <component id="ps655" name="Button.xml" path="/"/>
   </resources>
   <publish name="Game" genCode="true" rotation="true"/>
 </packageDescription>

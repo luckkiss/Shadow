@@ -11,6 +11,7 @@ export interface uiItem {
   /** 释放包资源，尽量不要，除非是一些不常用的小界面，并且必须单独一个包  */
   releaseInstance: () => void;
 }
+
 class UIManager {
   private static ins: UIManager;
   public static get inst() {
@@ -22,6 +23,7 @@ class UIManager {
 
   private guiMap: HashMap<string, fgui.GComponent> = new HashMap();
   private windowMap: HashMap<string, fgui.GComponent> = new HashMap();
+
   private init() {
     !CC_EDITOR && fgui.addLoadHandler();
     //cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
@@ -30,16 +32,17 @@ class UIManager {
       cc.Director.EVENT_AFTER_SCENE_LAUNCH,
       () => {
         !CC_EDITOR && fgui.GRoot.create();
+        console.info(
+          "########################### fgui.GRoot.create ###########################"
+        );
       },
       this
     );
+    this.isInit = true;
   }
 
   /** 加载一些静态UI资源，一些动态加载的小UI，需要动态加载和卸载 */
   loadUIPackage(callabck: Function) {
-    console.log(
-      "###################################loadUIPackage###############################"
-    );
     if (!this.isInit) this.init();
     cc.loader.loadResDir(
       "UI/sync",
@@ -102,6 +105,7 @@ class UIManager {
         (fgui.GRoot.inst.width - view.width) / 2,
         (fgui.GRoot.inst.height - view.height) / 2
       );
+
       fgui.GRoot.inst.addChild(view);
       this.guiMap.add(uiItem.URL, view);
       return view.node

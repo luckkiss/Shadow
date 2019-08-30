@@ -1,3 +1,8 @@
+import { gCamera } from "../Controller/CameraController";
+import { UIMgr } from "../Controller/UIManager";
+import MainUI from "../UI/MainUI";
+import fMainUI from "../UI/export/GameScene/fMainUI";
+
 // Learn TypeScript:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -14,11 +19,23 @@ const { ccclass, property } = cc._decorator;
 export default class Game extends cc.Component {
   // LIFE-CYCLE CALLBACKS:
 
+  @property(cc.Camera)
+  UICamera: cc.Camera = null;
+  @property(cc.Camera)
+  MainCamera: cc.Camera = null;
+  @property(cc.Node)
+  BackgroundRoot: cc.Node = null;
+  @property(cc.Node)
+  PlayerRoot: cc.Node = null;
+
   onLoad() {
-    console.log(" Game Scene");
+    gCamera.bindMainCamera(this.MainCamera);
+    gCamera.bindUICamera(this.UICamera);
   }
 
-  start() {}
+  start() {
+    UIMgr.openGUI(fMainUI, MainUI);
+  }
 
-  // update (dt) {}
+  update(dt: number) {}
 }

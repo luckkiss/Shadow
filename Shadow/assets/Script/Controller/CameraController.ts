@@ -11,10 +11,6 @@ class CameraController {
 
   private maxMoveYRatio: number = 0.5;
 
-  // TODO  计算逻辑似乎有问题
-
-  private zoomRatioSense: number = 1;
-
   private isEnableCameraZoom: boolean = true;
 
   private MainCamera: cc.Camera = null;
