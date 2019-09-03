@@ -1,6 +1,3 @@
-import { gEventMgr } from "../Event/EventManager";
-import { GlobalEvent } from "../Event/EventName";
-
 class CameraController {
   private static ins: CameraController;
   public static get inst() {
@@ -11,7 +8,7 @@ class CameraController {
 
   private maxMoveYRatio: number = 0.5;
 
-  private isEnableCameraZoom: boolean = true;
+  private isEnableCameraZoom: boolean = false;
 
   private MainCamera: cc.Camera = null;
 
@@ -56,10 +53,10 @@ class CameraController {
 
   zoomIn() {
     this.enableFollow = false;
-    this.MainCamera.node.stopActionByTag(101);
-    let zoomIn = cc.moveTo(0.4, cc.v2(0, 360));
-    zoomIn.setTag(100);
-    this.MainCamera.node.runAction(zoomIn);
+    // this.MainCamera.node.stopActionByTag(101);
+    // let zoomIn = cc.moveTo(0.4, cc.v2(0, 360));
+    // zoomIn.setTag(100);
+    // this.MainCamera.node.runAction(zoomIn);
   }
 
   zoomOut() {
@@ -128,27 +125,28 @@ class CameraController {
       this.MainCamera.zoomRatio = CMath.Clamp(this.MainCamera.zoomRatio, 1, 0);
       return;
     }
-    // 移动垂直方向镜头
-    this.MainCamera.node.y = this.target.y - cc.winSize.height / 4;
+    // // 移动垂直方向镜头
+    // this.MainCamera.node.y = this.target.y - cc.winSize.height / 4;
 
-    this.MainCamera.node.y = CMath.Clamp(
-      this.MainCamera.node.y,
-      cc.winSize.height * this.maxMoveYRatio,
-      0
-    );
+    // this.MainCamera.node.y = CMath.Clamp(
+    //   this.MainCamera.node.y,
+    //   cc.winSize.height * this.maxMoveYRatio,
+    //   0
+    // );
 
-    // 移动水平方向镜头
-    if (this.target.x > cc.winSize.width / 4) {
-      this.MainCamera.node.x = this.target.x - cc.winSize.width / 4;
-    } else if (this.target.x < -cc.winSize.width / 4) {
-      this.MainCamera.node.x = this.target.x + cc.winSize.width / 4;
-    }
+    // // 移动水平方向镜头
+    // if (this.target.x > cc.winSize.width / 4) {
+    //   this.MainCamera.node.x = this.target.x - cc.winSize.width / 4;
+    // } else if (this.target.x < -cc.winSize.width / 4) {
+    //   this.MainCamera.node.x = this.target.x + cc.winSize.width / 4;
+    // }
 
-    this.MainCamera.node.x = CMath.Clamp(
-      this.MainCamera.node.x,
-      cc.winSize.width / 2,
-      -cc.winSize.width / 2
-    );
+    // this.MainCamera.node.x = CMath.Clamp(
+    //   this.MainCamera.node.x,
+    //   cc.winSize.width / 2,
+    //   -cc.winSize.width / 2
+    // );
+    this.MainCamera.node.x = this.target.x;
 
     // 镜头缩放
     if (this.isEnableCameraZoom) {

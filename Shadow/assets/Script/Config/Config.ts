@@ -13,5 +13,7 @@ export const Config = {
   MaxPlayer: 2,
   /** 是否是多人游戏 */
   isMultiPlayer: false,
-  FPS: 60
+  FPS: 60,
+  /** 设计的分辨率 */
+  Size: cc.size(1920, 1080)
 };

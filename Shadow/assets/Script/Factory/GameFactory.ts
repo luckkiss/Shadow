@@ -91,11 +91,9 @@ class ObjPool {
 
 enum Step {
   INIT = 0,
-  MONSTER = 1 << 1,
-  BALL = 1 << 2,
-  BACKGROUND = 1 << 3,
-  ITEM = 1 << 4,
-  DONE = Step.MONSTER | Step.BALL | Step.BACKGROUND | Step.ITEM
+  BLOCK_LOW,
+  BLOCK_HIGH,
+  DONE = Step.BLOCK_LOW | Step.BLOCK_HIGH
 }
 
 class GameFactory {
@@ -109,7 +107,8 @@ class GameFactory {
   private doneCallback: Function;
   init(callback: Function) {
     this.doneCallback = callback;
-    this.doneCallback();
+    this.initBlockLow();
+    this.initBlockHigh();
   }
 
   private nextStep(step: Step) {
@@ -120,134 +119,48 @@ class GameFactory {
     }
   }
 
-  private monstersPool: HashMap<string | number, ObjPool> = new HashMap();
-  initMonsters() {
-    let monsters = TableMgr.inst.getAll_Monster_ball__monster_Data();
+  private blockLowPool: ObjPool;
+  initBlockLow() {
     let self = this;
-    let count = 0;
-    let total = 0;
-    for (let id in monsters) total++;
-    for (let id in monsters) {
-      let url = "Prefabs/Monster/Monster-" + monsters[id].mod;
-      cc.loader.loadRes(url, cc.Prefab, (err, prefab) => {
-        if (err) {
-          console.error(err);
-        } else {
-          let monsterNode = cc.instantiate(prefab);
-          self.monstersPool.add(id, new ObjPool(monsterNode, 10));
-          count++;
-          if (count >= total) {
-            self.nextStep(Step.MONSTER);
-          }
-        }
-      });
-    }
+    cc.loader.loadRes("Prefabs/blockLow", cc.Prefab, (err, prefab) => {
+      if (err) {
+        console.error(err);
+      } else {
+        let item = cc.instantiate(prefab);
+        self.blockLowPool = new ObjPool(item, 100);
+        self.nextStep(Step.BLOCK_LOW);
+      }
+    });
   }
 
-  private ballPool: HashMap<string, ObjPool> = new HashMap();
-  initBalls() {
-    let balls = TableMgr.inst.getAll_Monster_ball_ball_Data();
-    console.log(balls);
+  private blockHighPool: ObjPool;
+  initBlockHigh() {
     let self = this;
-    let count = 0;
-    let total = 0;
-    for (let id in balls) total++;
-    for (let id in balls) {
-      let url = "Prefabs/Ball/Ball-" + id;
-      cc.loader.loadRes(url, cc.Prefab, (err, prefab) => {
-        if (err) {
-          console.error(err);
-        } else {
-          let ball = cc.instantiate(prefab);
-          self.ballPool.add(id, new ObjPool(ball, 10));
-          count++;
-          if (count >= total) {
-            self.nextStep(Step.BALL);
-          }
-        }
-      });
-    }
+    cc.loader.loadRes("Prefabs/blockHigh", cc.Prefab, (err, prefab) => {
+      if (err) {
+        console.error(err);
+      } else {
+        let item = cc.instantiate(prefab);
+        self.blockHighPool = new ObjPool(item, 100);
+        self.nextStep(Step.BLOCK_HIGH);
+      }
+    });
   }
 
-  private scenePool: HashMap<string, ObjPool> = new HashMap();
-  initBackground() {
-    let scenes = TableMgr.inst.getAll_Monster_ball_scene_Data();
-    let self = this;
-    let count = 0;
-    let total = 0;
-    for (let id in scenes) total++;
-    for (let id in scenes) {
-      let url = "Prefabs/Background/Background-" + id;
-      cc.loader.loadRes(url, cc.Prefab, (err, prefab) => {
-        if (err) {
-          console.error(err);
-        } else {
-          let scene = cc.instantiate(prefab);
-          self.scenePool.add(id, new ObjPool(scene, 1));
-          count++;
-          if (count >= total) {
-            self.nextStep(Step.BACKGROUND);
-          }
-        }
-      });
-    }
+  getLowBlock(...args) {
+    return this.blockLowPool.get(...args);
   }
 
-  private itemPool: HashMap<string, ObjPool> = new HashMap();
-  initItems() {
-    let items = TableMgr.inst.getAll_Monster_ball_prop_Data();
-    let self = this;
-    let count = 0;
-    let total = 0;
-    for (let id in items) total++;
-    for (let id in items) {
-      let url = "Prefabs/Item/Item-" + id;
-      cc.loader.loadRes(url, cc.Prefab, (err, prefab) => {
-        if (err) {
-          console.error(err);
-        } else {
-          let item = cc.instantiate(prefab);
-          self.itemPool.add(id, new ObjPool(item, 10));
-          count++;
-          if (count >= total) {
-            self.nextStep(Step.ITEM);
-          }
-        }
-      });
-    }
+  putLowBlock(block: cc.Node) {
+    this.blockLowPool.put(block);
   }
 
-  getMonster(monsterID: string | number, ...args): cc.Node {
-    return this.monstersPool.get(monsterID).get(args);
+  getHighBlock(...args) {
+    return this.blockHighPool.get(...args);
   }
 
-  getBall(ballID: string, ...args): cc.Node {
-    return this.ballPool.get(ballID).get(args);
-  }
-
-  putMonster(monsterID: string, monster: cc.Node) {
-    this.monstersPool.get(monsterID).put(monster);
-  }
-
-  putBall(ballID: string, ball: cc.Node) {
-    this.ballPool.get(ballID).put(ball);
-  }
-
-  getBackground(sceneID: string, ...args): cc.Node {
-    return this.scenePool.get(sceneID).get(args);
-  }
-
-  putBackground(sceneID: string, scene: cc.Node) {
-    this.scenePool.get(sceneID).put(scene);
-  }
-
-  getItems(itemID: string, ...args): cc.Node {
-    console.log(itemID);
-    return this.itemPool.get(itemID).get(args);
-  }
-
-  puItems(itemID: string, item: cc.Node) {
-    this.itemPool.get(itemID).put(item);
+  putHighBlock(block: cc.Node) {
+    this.blockHighPool.put(block);
   }
 }
 

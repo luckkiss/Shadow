@@ -19,7 +19,7 @@ export default class Entity extends cc.Component {
   @property(cc.Vec2)
   gravity: cc.Vec2 = cc.v2(0, 0);
 
-  private speed: cc.Vec2 = cc.v2(0, 0);
+  public speed: cc.Vec2 = cc.v2(0, 0);
   onLoad() {}
 
   start() {}
@@ -32,10 +32,17 @@ export default class Entity extends cc.Component {
     this.speed = speed;
   }
 
+  get Direction() {
+    let dir = cc.v2(0, 0);
+    dir.x = this.node.scaleX >= 0 ? 1 : -1;
+    dir.y = this.node.scaleY >= 0 ? 1 : -1;
+    return dir;
+  }
+
   update(dt: number) {
     let offset = this.speed.mul(dt).add(this.gravity.mul(0.5 * dt * dt));
-    this.node.x += offset.x * this.node.scaleX;
-    this.node.y += offset.y * this.node.scaleY;
+    this.node.x += offset.x * this.Direction.x;
+    this.node.y += offset.y * this.Direction.y;
     this.speed.addSelf(this.gravity.mul(dt));
   }
 }

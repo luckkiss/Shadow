@@ -1,10 +1,8 @@
 import { Config } from "../Config/Config";
-import { TableMgr } from "../TableMgr";
 import { ShaderManager } from "../Shader/ShaderManager";
 import { gAudio } from "../Controller/AudioController";
 import { UIMgr } from "../Controller/UIManager";
 import { gFactory } from "../Factory/GameFactory";
-import { threadId } from "worker_threads";
 const celerx = require("../Utils/celerx");
 const { ccclass, property } = cc._decorator;
 
@@ -21,7 +19,7 @@ export enum LOAD_STEP {
   /** 匹配 */
   MATCH = 2 << 4,
   /** 加载表 */
-  JSON_PARSE = 2 << 5,
+  FACTORY = 2 << 5,
   /** 动画播放完成 */
   ANIMATION_DONE = 2 << 6,
   /** 场景加载完成 */
@@ -34,7 +32,7 @@ export enum LOAD_STEP {
     LOAD_STEP.REGISTER |
     LOAD_STEP.LOGIN |
     LOAD_STEP.MATCH |
-    LOAD_STEP.JSON_PARSE |
+    LOAD_STEP.FACTORY |
     LOAD_STEP.ANIMATION_DONE |
     LOAD_STEP.SCENE_DONE |
     LOAD_STEP.AUDIO |
@@ -86,16 +84,11 @@ export default class WelcomeScene extends cc.Component {
       this.nextStep(LOAD_STEP.INIT);
     }
 
-    CC_DEBUG &&
-      window.document.domain != "localhost" &&
-      (TableMgr.JSON_URL = "http://104.224.151.19:8080/Punchmoon/");
-    TableMgr.inst.startLoad("json/", () => {
-      gFactory.init(
-        function() {
-          this.nextStep(LOAD_STEP.JSON_PARSE);
-        }.bind(this)
-      );
-    });
+    gFactory.init(
+      function() {
+        this.nextStep(LOAD_STEP.FACTORY);
+      }.bind(this)
+    );
 
     gAudio.init(
       function() {

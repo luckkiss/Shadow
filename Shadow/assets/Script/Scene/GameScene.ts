@@ -2,6 +2,9 @@ import { gCamera } from "../Controller/CameraController";
 import { UIMgr } from "../Controller/UIManager";
 import MainUI from "../UI/MainUI";
 import fMainUI from "../UI/export/GameScene/fMainUI";
+import { Game } from "../Entity/Game";
+import { Config } from "../Config/Config";
+import { gFactory } from "../Factory/GameFactory";
 
 // Learn TypeScript:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -16,7 +19,7 @@ import fMainUI from "../UI/export/GameScene/fMainUI";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class Game extends cc.Component {
+export default class GameScene extends cc.Component {
   // LIFE-CYCLE CALLBACKS:
 
   @property(cc.Camera)
@@ -27,15 +30,68 @@ export default class Game extends cc.Component {
   BackgroundRoot: cc.Node = null;
   @property(cc.Node)
   PlayerRoot: cc.Node = null;
+  @property(cc.Node)
+  BlockRoot: cc.Node = null;
+  @property(cc.Node)
+  BlockRootInverse: cc.Node = null;
 
+  private offset: number = 0;
   onLoad() {
     gCamera.bindMainCamera(this.MainCamera);
     gCamera.bindUICamera(this.UICamera);
+    cc.director.getCollisionManager().enabled = true;
   }
 
   start() {
     UIMgr.openGUI(fMainUI, MainUI);
+    this.addBlock(this.BlockRoot);
   }
 
-  update(dt: number) {}
+  update(dt: number) {
+    let back = this.BackgroundRoot.children[0];
+    let backPos = this.MainCamera.node.convertToNodeSpaceAR(
+      back.convertToWorldSpaceAR(back.position)
+    );
+
+    if (backPos.x <= -Config.Size.width * 2 + this.offset) {
+      back.x = this.BackgroundRoot.children[1].x + 2 * Config.Size.width;
+      this.offset += 2 * Config.Size.width;
+      [this.BackgroundRoot.children[1], this.BackgroundRoot.children[0]] = [
+        this.BackgroundRoot.children[0],
+        this.BackgroundRoot.children[1]
+      ];
+
+      this.addBlock(this.BlockRoot);
+      if (Game.score > 100) {
+        this.addBlock(this.BlockRootInverse);
+      }
+    }
+    Game.score++;
+    //Game.speed++;
+  }
+
+  addBlock(blockRoot: cc.Node) {
+    // for (let block of blockRoot.children) {
+    //   if (
+    //     block.x <
+    //     this.MainCamera.node.x - Config.Size.width / 2 - block.width
+    //   ) {
+    //     if (block.name == "Low") {
+    //       gFactory.putLowBlock(block);
+    //     } else {
+    //       gFactory.putHighBlock(block);
+    //     }
+    //   }
+    // }
+
+    let startX = this.MainCamera.node.x + Config.Size.width / 2;
+    let endX = startX + Config.Size.width;
+    console.log(startX, endX);
+    for (let x = startX; x <= endX; x += ((x % 3) + 1) * 200) {
+      console.log(x);
+      blockRoot.addChild(gFactory.getHighBlock("High", cc.v2(x, 0)));
+    }
+  }
+
+  lateUpdate() {}
 }
