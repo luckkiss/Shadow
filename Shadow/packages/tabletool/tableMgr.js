@@ -26,6 +26,7 @@ export class TableMgr {
         this.progressCallback = progress;
 
         let self = this;
+        console.log("Base URL:", TableMgr.JSON_URL);
         this.load(TableMgr.JSON_URL + url.trim().split('/').join('') + '/file_list' + this.fileFormat, function(err, JsonAsset: cc.JsonAsset) {
             if (err) {
                 console.error(err.errorMessage);
