@@ -4,7 +4,7 @@ class GameCtrl {
     return this.ins ? this.ins : (this.ins = new GameCtrl());
   }
 
-  public speed: number = 200;
+  public speed: number = 400;
   public score: number = 0;
   private constructor() {}
 }

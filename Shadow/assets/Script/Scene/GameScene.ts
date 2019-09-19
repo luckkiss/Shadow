@@ -1,7 +1,7 @@
 import { gCamera } from "../Controller/CameraController";
 import { UIMgr } from "../Controller/UIManager";
 import MainUI from "../UI/MainUI";
-import fMainUI from "../UI/export/GameScene/fMainUI";
+import fMainUI from "../UI/export/Game/fMainUI";
 import { Game } from "../Entity/Game";
 import { Config } from "../Config/Config";
 import { gFactory } from "../Factory/GameFactory";
@@ -40,6 +40,7 @@ export default class GameScene extends cc.Component {
     gCamera.bindMainCamera(this.MainCamera);
     gCamera.bindUICamera(this.UICamera);
     cc.director.getCollisionManager().enabled = true;
+    cc.director.getCollisionManager().enabledDebugDraw = true;
   }
 
   start() {
@@ -71,25 +72,25 @@ export default class GameScene extends cc.Component {
   }
 
   addBlock(blockRoot: cc.Node) {
-    // for (let block of blockRoot.children) {
-    //   if (
-    //     block.x <
-    //     this.MainCamera.node.x - Config.Size.width / 2 - block.width
-    //   ) {
-    //     if (block.name == "Low") {
-    //       gFactory.putLowBlock(block);
-    //     } else {
-    //       gFactory.putHighBlock(block);
-    //     }
-    //   }
-    // }
+    for (let block of blockRoot.children) {
+      if (
+        block.x <
+        this.MainCamera.node.x - Config.Size.width / 2 - block.width
+      ) {
+        if (block.name == "Low") {
+          gFactory.putLowBlock(block);
+        } else {
+          gFactory.putHighBlock(block);
+        }
+      }
+    }
 
     let startX = this.MainCamera.node.x + Config.Size.width / 2;
     let endX = startX + Config.Size.width;
-    console.log(startX, endX);
+
     for (let x = startX; x <= endX; x += ((x % 3) + 1) * 200) {
-      console.log(x);
-      blockRoot.addChild(gFactory.getHighBlock("High", cc.v2(x, 0)));
+      let high = cc.director.getTotalFrames() % 2 ? "High" : "Low";
+      blockRoot.addChild(gFactory.getHighBlock(high, cc.v2(x, 0)));
     }
   }
 

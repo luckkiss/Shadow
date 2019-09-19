@@ -24,8 +24,6 @@ interface CMath {
 // }
 
 declare var CMath: CMath;
-/** 是否显示整个场景 （调试用）*/
-declare var CAMERA_SHOW_ALL;
 
 /** 是否无敌 （调试用）*/
 declare var INVINCIBLE;

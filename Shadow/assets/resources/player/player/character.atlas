@@ -1,0 +1,62 @@
+
+character.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body2
+  rotate: false
+  xy: 2, 31
+  size: 84, 32
+  orig: 84, 32
+  offset: 0, 0
+  index: -1
+body3
+  rotate: false
+  xy: 2, 65
+  size: 105, 59
+  orig: 105, 59
+  offset: 0, 0
+  index: -1
+hair
+  rotate: false
+  xy: 2, 6
+  size: 36, 23
+  orig: 36, 23
+  offset: 0, 0
+  index: -1
+hair2
+  rotate: false
+  xy: 88, 38
+  size: 38, 25
+  orig: 38, 25
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 109, 107
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+leg1
+  rotate: true
+  xy: 40, 14
+  size: 15, 36
+  orig: 15, 36
+  offset: 0, 0
+  index: -1
+leg2
+  rotate: false
+  xy: 109, 69
+  size: 10, 36
+  orig: 10, 36
+  offset: 0, 0
+  index: -1
+neck
+  rotate: true
+  xy: 78, 15
+  size: 14, 10
+  orig: 14, 10
+  offset: 0, 0
+  index: -1

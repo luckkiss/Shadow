@@ -1,4 +1,6 @@
 import { HashMap } from "../Utils/HashMap";
+import GameBinder from "../UI/export/Game/GameBinder";
+import WindowBinder from "../UI/export/Window/WindowBinder";
 
 const { ccclass } = cc._decorator;
 
@@ -22,7 +24,7 @@ class UIManager {
   private isInit: boolean = false;
 
   private guiMap: HashMap<string, fgui.GComponent> = new HashMap();
-  private windowMap: HashMap<string, fgui.GComponent> = new HashMap();
+  private windowMap: HashMap<string, fgui.Window> = new HashMap();
 
   private init() {
     !CC_EDITOR && fgui.addLoadHandler();
@@ -42,22 +44,26 @@ class UIManager {
   }
 
   /** 加载一些静态UI资源，一些动态加载的小UI，需要动态加载和卸载 */
-  loadUIPackage(callabck: Function) {
+  loadUIPackage(callback: Function) {
     if (!this.isInit) this.init();
+    this.windowMap.clear();
+    this.guiMap.clear();
+    fgui.UIPackage["_instById"] = {};
     cc.loader.loadResDir(
       "UI/sync",
       (err, assets: cc.RawAsset[], urls: string[]) => {
         console.log(urls);
         if (err) {
-          callabck(err);
+          callback(err);
         } else {
           for (let url of urls) {
             if (!/atlas/.test(url)) {
-              console.log(url);
               fgui.UIPackage.addPackage(url);
             }
           }
-          callabck(null);
+          GameBinder.bindAll();
+          WindowBinder.bindAll();
+          callback(null);
         }
       }
     );
@@ -74,10 +80,10 @@ class UIManager {
       );
     });
 
-    this.windowMap.forEach((key: string, view: fgui.GComponent) => {
-      view.setPosition(
-        (size.width - view.width) / 2,
-        (size.height - view.height) / 2
+    this.windowMap.forEach((key: string, win: fgui.Window) => {
+      win.setPosition(
+        (size.width - win.width) / 2,
+        (size.height - win.height) / 2
       );
     });
   }
@@ -138,13 +144,16 @@ class UIManager {
       }
     } else {
       uiItem.createInstance((gComp: fgui.GComponent) => {
-        gComp.setPosition(
-          (fgui.GRoot.inst.width - gComp.width) / 2,
-          (fgui.GRoot.inst.height - gComp.height) / 2
+        let win = new fgui.Window();
+        win.contentPane = gComp;
+        win.modal = true;
+        win.show();
+        win.setPosition(
+          (fgui.GRoot.inst.width - win.width) / 2,
+          (fgui.GRoot.inst.height - win.height) / 2
         );
-        fgui.GRoot.inst.addChild(gComp);
-        this.guiMap.add(uiItem.URL, gComp);
-        gComp.node
+        this.windowMap.add(uiItem.URL, win);
+        win.node
           .addComponent(type)
           .register(gComp)
           .show();
@@ -152,14 +161,19 @@ class UIManager {
     }
   }
 
-  closeWindow<T extends BaseUI>(uiItem: uiItem, type: { new (): T }): boolean {
+  closeWindow<T extends BaseUI>(
+    uiItem: uiItem,
+    type: { new (): T },
+    isRelease: boolean = true
+  ): boolean {
     let win = this.windowMap.get(uiItem.URL);
     if (!win) {
       console.error("UI not exist:" + uiItem.URL);
       return false;
     }
-    let success = win.node.getComponent(type).hide(true);
-    uiItem.releaseInstance();
+    win.hide();
+    let success = win.node.getComponent(type).hide(isRelease);
+    isRelease && uiItem.releaseInstance();
     this.windowMap.remove(uiItem.URL);
     return success;
   }

@@ -42,13 +42,6 @@ class CameraController {
   initCamera() {
     this.enableFollow = true;
     if (!this.MainCamera || !this.MainCamera.node) return;
-    if (CAMERA_SHOW_ALL) {
-      this.MainCamera.node.y = 360;
-      this.MainCamera.zoomRatio = 0.5;
-    } else {
-      this.MainCamera.node.y = 0;
-      this.MainCamera.zoomRatio = 1;
-    }
   }
 
   zoomIn() {
@@ -60,7 +53,6 @@ class CameraController {
   }
 
   zoomOut() {
-    if (!this.canZoomOut || CAMERA_SHOW_ALL) return;
     let zoomOut = cc.moveTo(0.2, cc.v2(0, 0));
     zoomOut.setTag(101);
     this.MainCamera.node.stopActionByTag(100);
@@ -78,7 +70,6 @@ class CameraController {
 
   /** 设置当前跟随目标 */
   setTarget(newTarget: cc.Node) {
-    if (CAMERA_SHOW_ALL) return;
     this.target = newTarget;
     if (!this.target) {
       console.log(" 球没了");
@@ -88,7 +79,6 @@ class CameraController {
   }
 
   readyRocket(isReady: boolean) {
-    if (CAMERA_SHOW_ALL) return;
     if (this.enableFollow == !isReady) return;
     console.log("enable follow:" + this.enableFollow);
 
@@ -107,14 +97,6 @@ class CameraController {
       !this.UICamera.node
     )
       return;
-    if (CAMERA_SHOW_ALL || !this.enableFollow) {
-      if (this.MainCamera.zoomRatio > 0.5) {
-        this.MainCamera.zoomRatio -= 0.03;
-        this.MainCamera.zoomRatio =
-          this.MainCamera.zoomRatio < 0.5 ? 0.5 : this.MainCamera.zoomRatio;
-      }
-      return;
-    }
 
     if (!this.target || !this.target.isValid) {
       if (this.MainCamera.zoomRatio < 1) {

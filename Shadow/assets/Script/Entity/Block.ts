@@ -13,9 +13,8 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class Block extends cc.Component {
   reuse() {
-    console.log(arguments[0][0], arguments[0][1]);
-    this.node.name = arguments[0][0];
-    this.node.setPosition(arguments[0][1]);
+    this.node.name = arguments[0];
+    this.node.setPosition(arguments[1]);
   }
 
   unuse() {}

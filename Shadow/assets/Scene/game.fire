@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.2208079808067377,
-      "y": 0.2208079808067377,
+      "x": 1,
+      "y": 1,
       "z": 1
     },
     "_quat": {
@@ -1020,7 +1020,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "playerTop",
+    "_name": "player",
     "_objFlags": 0,
     "_parent": {
       "__id__": 20
@@ -1037,12 +1037,11 @@
       },
       {
         "__id__": 24
-      },
-      {
-        "__id__": 25
       }
     ],
-    "_prefab": null,
+    "_prefab": {
+      "__id__": 25
+    },
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -1053,8 +1052,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 55,
-      "height": 65
+      "width": 217.96,
+      "height": 262.94
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1088,34 +1087,6 @@
     "_id": "98ohh4+gxCKLH2dI8Csut6"
   },
   {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 21
-    },
-    "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "a88db4ef-8404-4777-a9e4-c4a71df6acf2"
-    },
-    "_type": 0,
-    "_sizeMode": 1,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_state": 0,
-    "_atlas": null,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_id": "25F1jRdCxB5qlDlqXNi5e3"
-  },
-  {
     "__type__": "08772ZAJ4NL74aPRHIcuwmy",
     "_name": "",
     "_objFlags": 0,
@@ -1138,6 +1109,32 @@
       "__id__": 21
     },
     "_enabled": true,
+    "paused": false,
+    "defaultSkin": "",
+    "defaultAnimation": "run",
+    "_preCacheMode": 0,
+    "_cacheMode": 0,
+    "loop": true,
+    "premultipliedAlpha": false,
+    "timeScale": 1,
+    "_accTime": 0,
+    "_playCount": 0,
+    "_frameCache": null,
+    "_curFrame": null,
+    "_skeletonCache": null,
+    "_animationName": "run",
+    "_animationQueue": [],
+    "_headAniInfo": null,
+    "_playTimes": 0,
+    "_isAniComplete": true,
+    "_N$skeletonData": {
+      "__uuid__": "aeb32b96-e3bc-4110-a2a8-8ac0f729ff98"
+    },
+    "_N$_defaultCacheMode": 0,
+    "_N$debugSlots": false,
+    "_N$debugBones": false,
+    "_N$useTint": false,
+    "_N$enableBatch": false,
     "JumpType": 0,
     "_id": "ddK+KJ2QFME7Kqit9BbMPt"
   },
@@ -1180,8 +1177,19 @@
     "_id": "97+grVdn1OM7OKmIuNQUmQ"
   },
   {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 21
+    },
+    "asset": {
+      "__uuid__": "3699a12e-349d-4be8-be75-ae69e1756597"
+    },
+    "fileId": "98ohh4+gxCKLH2dI8Csut6",
+    "sync": false
+  },
+  {
     "__type__": "cc.Node",
-    "_name": "playerBottom",
+    "_name": "player",
     "_objFlags": 0,
     "_parent": {
       "__id__": 20
@@ -1198,12 +1206,11 @@
       },
       {
         "__id__": 29
-      },
-      {
-        "__id__": 30
       }
     ],
-    "_prefab": null,
+    "_prefab": {
+      "__id__": 30
+    },
     "_opacity": 150,
     "_color": {
       "__type__": "cc.Color",
@@ -1214,8 +1221,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 55,
-      "height": 65
+      "width": 217.96,
+      "height": 262.94
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1246,35 +1253,7 @@
     "_skewX": 0,
     "_skewY": 0,
     "groupIndex": 0,
-    "_id": "c4Qr9vd8BLDpkPAqJYy1i8"
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 26
-    },
-    "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "a88db4ef-8404-4777-a9e4-c4a71df6acf2"
-    },
-    "_type": 0,
-    "_sizeMode": 1,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_state": 0,
-    "_atlas": null,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_id": "75r+8606xCQKKoPcZc0R5W"
+    "_id": "acOw6VgaxK9YBH0YMfXXsM"
   },
   {
     "__type__": "08772ZAJ4NL74aPRHIcuwmy",
@@ -1289,7 +1268,7 @@
       "x": 0,
       "y": -2000
     },
-    "_id": "38aa7bveVCKa4XU0mggjEh"
+    "_id": "3ajGRrKxxHJIQpnSFic6kh"
   },
   {
     "__type__": "42d1cntGTBCeKmGxkcPyWxZ",
@@ -1299,8 +1278,34 @@
       "__id__": 26
     },
     "_enabled": true,
+    "paused": false,
+    "defaultSkin": "",
+    "defaultAnimation": "run",
+    "_preCacheMode": 0,
+    "_cacheMode": 0,
+    "loop": true,
+    "premultipliedAlpha": false,
+    "timeScale": 1,
+    "_accTime": 0,
+    "_playCount": 0,
+    "_frameCache": null,
+    "_curFrame": null,
+    "_skeletonCache": null,
+    "_animationName": "run",
+    "_animationQueue": [],
+    "_headAniInfo": null,
+    "_playTimes": 0,
+    "_isAniComplete": true,
+    "_N$skeletonData": {
+      "__uuid__": "aeb32b96-e3bc-4110-a2a8-8ac0f729ff98"
+    },
+    "_N$_defaultCacheMode": 0,
+    "_N$debugSlots": false,
+    "_N$debugBones": false,
+    "_N$useTint": false,
+    "_N$enableBatch": false,
     "JumpType": 1,
-    "_id": "9docY6XidOQoQOY/bKQx0g"
+    "_id": "f8vQ75PxtM5b8m1Q24p/Vi"
   },
   {
     "__type__": "cc.PolygonCollider",
@@ -1319,26 +1324,37 @@
     "points": [
       {
         "__type__": "cc.Vec2",
-        "x": -26.3,
-        "y": 45.8
+        "x": -16.9,
+        "y": 3.2
       },
       {
         "__type__": "cc.Vec2",
-        "x": -12.7,
-        "y": 0.9
+        "x": 21.6,
+        "y": 12.1
       },
       {
         "__type__": "cc.Vec2",
-        "x": 20.4,
-        "y": 15.1
+        "x": 24.6,
+        "y": 64.2
       },
       {
         "__type__": "cc.Vec2",
-        "x": 23.3,
-        "y": 63.6
+        "x": -14.5,
+        "y": 55.9
       }
     ],
-    "_id": "51kco2L31AEJvH/NgW1IUr"
+    "_id": "589fZks2tDEZ5w8wXwe6qE"
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 26
+    },
+    "asset": {
+      "__uuid__": "3699a12e-349d-4be8-be75-ae69e1756597"
+    },
+    "fileId": "98ohh4+gxCKLH2dI8Csut6",
+    "sync": false
   },
   {
     "__type__": "cc.Canvas",

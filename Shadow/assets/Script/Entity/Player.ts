@@ -12,7 +12,7 @@ export enum JUMP {
 }
 
 @ccclass
-export default class Player extends cc.Component {
+export default class Player extends sp.Skeleton {
   @property({ type: cc.Enum(JUMP) })
   JumpType: JUMP = JUMP.Top;
 
@@ -42,6 +42,8 @@ export default class Player extends cc.Component {
       } else {
         this.Entity.speed.y = 680;
       }
+      this.animation = "jump";
+      this.loop = false;
     }
   }
 
@@ -50,12 +52,17 @@ export default class Player extends cc.Component {
       this.node.y = 0;
       this.Entity.speed.y = 0;
       this.jumpTimes = 0;
+      if (this.animation != "run") {
+        this.loop = true;
+        this.animation = "run";
+      }
     } else {
     }
     this.Entity.speed.x = Game.speed;
+    super.update(dt);
   }
 
   onCollisionEnter(other, self) {
-    cc.director.pause();
+    //cc.director.pause();
   }
 }
