@@ -88,9 +88,13 @@ export default class GameScene extends cc.Component {
     let startX = this.MainCamera.node.x + Config.Size.width / 2;
     let endX = startX + Config.Size.width;
 
-    for (let x = startX; x <= endX; x += ((x % 3) + 1) * 200) {
-      let high = cc.director.getTotalFrames() % 2 ? "High" : "Low";
-      blockRoot.addChild(gFactory.getHighBlock(high, cc.v2(x, 0)));
+    for (let x = startX; x <= endX; x++) {
+      let name = x % 2 ? "High" : "Low";
+      let block =
+        name == "High"
+          ? gFactory.getHighBlock(name, cc.v2(x, 0))
+          : gFactory.getLowBlock(name, cc.v2(x, 0));
+      blockRoot.addChild(block);
     }
   }
 
