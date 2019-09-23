@@ -1,0 +1,27 @@
+
+effect.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+o1
+  rotate: false
+  xy: 91, 107
+  size: 22, 4
+  orig: 22, 4
+  offset: 0, 0
+  index: -1
+o2
+  rotate: false
+  xy: 2, 67
+  size: 72, 17
+  orig: 72, 17
+  offset: 0, 0
+  index: -1
+o3
+  rotate: false
+  xy: 2, 86
+  size: 87, 25
+  orig: 87, 25
+  offset: 0, 0
+  index: -1
